@@ -18,7 +18,7 @@ Just add these lines into your Maven's project file:
         <groupId>org.terentich</groupId>
         <artifactId>metaj</artifactId>
         <version>1.0</version>
-    <dependency>
+    </dependency>
 
 Example
 -------
@@ -55,4 +55,4 @@ The file 'src/test/java/Main.java' contains base example:
 LICENSE
 -------
 
-The Metaj library publish under the [Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
+The MetaJ library publish under the [Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
