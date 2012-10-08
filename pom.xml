@@ -1,95 +1,116 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.terentich</groupId>
-	<artifactId>metaj</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>MetaJ</name>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.terentich</groupId>
+  <artifactId>metaj</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>MetaJ</name>
+  <url>https://github.com/Terentich/MetaJ</url>
+  <description>The simple java library (and CLI-application) for reading manifest meta-information</description>
 
-	<properties>
-		<java.api>1.6</java.api>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.build.timestamp.format>dd.MM.yyyy HHmm z</maven.build.timestamp.format>
-		<dependency.path>lib</dependency.path>
-		<mainclass>${project.groupId}.${project.artifactId}.Main</mainclass>
-	</properties>
+  <properties>
+    <java.api>1.6</java.api>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.build.timestamp.format>dd.MM.yyyy HHmm z</maven.build.timestamp.format>
+    <mainclass>${project.groupId}.${project.artifactId}.Main</mainclass>
+  </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>${java.api}</source>
-					<target>${java.api}</target>
-				</configuration>
-			</plugin>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<index>true</index>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-							<addExtensions />
-							<classpathPrefix>${dependency.path}</classpathPrefix>
-							<mainClass>${mainclass}</mainClass>
-							<packageName>${project.groupId}</packageName>
-						</manifest>
+  <scm>
+    <url>https://github.com/Terentich/MetaJ.git</url>
+    <connection>scm:git://github.com/Terentich/MetaJ.git</connection>
+    <developerConnection>scm:git://github.com/Terentich/MetaJ.git</developerConnection>
+  </scm>
 
-						<manifestEntries>
-							<Implementation-Timestamp>${maven.build.timestamp}</Implementation-Timestamp>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
+  <developers>
+    <developer>
+      <id>terentich</id>
+      <name>Alexey V. Terentyev</name>
+      <email>terentich@gmail.com</email>
+    </developer>
+  </developers>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.5</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${dependency.path}</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>${java.api}</source>
+          <target>${java.api}</target>
+        </configuration>
+      </plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<id>test-execution</id>
-						<phase>package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>java</executable>
-					<workingDirectory>${project.build.directory}</workingDirectory>
-					<arguments>
-						<argument>-jar</argument>
-						<argument>${project.build.finalName}.${project.packaging}</argument>
-					</arguments>
-					<mainClass>${mainclass}</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.1</version>
+
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <doCheck>true</doCheck>
+          <doUpdate>true</doUpdate>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifestEntries>
+              <Implementation-Date>${maven.build.timestamp}
+              </Implementation-Date>
+              <Implementation-Revision>${buildNumber}</Implementation-Revision>
+            </manifestEntries>
+
+            <manifest>
+              <addDefaultImplementationEntries>true
+              </addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true
+              </addDefaultSpecificationEntries>
+
+              <mainClass>${mainclass}</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>${dependency.path}</classpathPrefix>
+              <packageName>${project.groupId}</packageName>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
