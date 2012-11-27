@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github</groupId>
+  <groupId>com.github.terentich</groupId>
   <artifactId>metaj</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>MetaJ</name>
@@ -25,8 +25,8 @@
 
   <scm>
     <url>https://github.com/Terentich/MetaJ.git</url>
-    <connection>scm:git://github.com/Terentich/MetaJ.git</connection>
-    <developerConnection>scm:git://github.com/Terentich/MetaJ.git</developerConnection>
+    <connection>scm:git:git@github.com/Terentich/MetaJ.git</connection>
+    <developerConnection>scm:git:git@github.com:Terentich/MetaJ.git</developerConnection>
   </scm>
 
   <developers>
@@ -62,11 +62,6 @@
             </goals>
           </execution>
         </executions>
-
-        <configuration>
-          <doCheck>true</doCheck>
-          <doUpdate>true</doUpdate>
-        </configuration>
       </plugin>
 
       <plugin>
