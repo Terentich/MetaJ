@@ -1,4 +1,4 @@
-package org.terentich.metaj;
+package com.github.metaj;
 
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;

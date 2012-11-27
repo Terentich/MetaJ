@@ -1,4 +1,4 @@
-package org.terentich.metaj;
+package com.github.metaj;
 
 import java.io.IOException;
 import java.net.URL;
