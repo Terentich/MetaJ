@@ -16,7 +16,7 @@ Just add these lines into your Maven's project file:
 
 ```xml
 <dependency>
-    <groupId>com.github</groupId>
+    <groupId>com.github.terentich</groupId>
     <artifactId>metaj</artifactId>
     <version>1.0</version>
 </dependency>

@@ -1,8 +1,8 @@
-package com.github.metaj;
+package com.github.terentich.metaj;
 
 import java.io.IOException;
 
-import com.github.metaj.MetaReader;
+import com.github.terentich.metaj.MetaReader;
 
 /**
  * The example class for testing application.
