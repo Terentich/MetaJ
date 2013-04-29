@@ -63,4 +63,4 @@ Continuous Integration
 ------
 Last build status on [Travis CI](https://travis-ci.org/Terentich/MetaJ/builds):
 
-[![Build Status](https://travis-ci.org/[Terentich]/[MetaJ].png)](https://travis-ci.org/[Terentich]/[MetaJ])
+[![Build Status](https://travis-ci.org/Terentich/MetaJ.png)](https://travis-ci.org/Terentich/MetaJ)
