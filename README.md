@@ -58,3 +58,9 @@ License
 -------
 
 The MetaJ library publish under the [Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
+
+Continuous Integration
+------
+Last build status on [Travis CI](https://travis-ci.org/Terentich/MetaJ/builds):
+
+[![Build Status](https://travis-ci.org/[Terentich]/[MetaJ].png)](https://travis-ci.org/[Terentich]/[MetaJ])
