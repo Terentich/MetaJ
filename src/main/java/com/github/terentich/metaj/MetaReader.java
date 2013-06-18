@@ -1,5 +1,7 @@
 package com.github.terentich.metaj;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map.Entry;
@@ -11,18 +13,18 @@ import java.util.jar.Manifest;
 /**
  * The reader used for retrieving Meta-information inside JAR-file or in the
  * file system for unpacked applications (MANIFEST.MF). <br/>
- *
+ * 
  * The main goal of an usage - get Meta-information in the runtime from the
  * current JAR-file in desktop/server applications: <br/>
- *
+ * 
  * <pre>
  * ...
  * Attributes attributes = new MetaReader(ClassInJar.class).getAttributes();
  * ...
  * </pre>
- *
+ * 
  * or
- *
+ * 
  * <pre>
  * public class ExampleServlet extends HttpServlet {
  *         ...
@@ -30,7 +32,7 @@ import java.util.jar.Manifest;
  *         ...
  * }
  * </pre>
- *
+ * 
  * @author Alexey V. Terentyev
  * @date 08.10.2012
  */
@@ -42,7 +44,7 @@ public class MetaReader {
     /**
      * Create the MetaReader by specified class from the JAR-file or any other
      * class for the unpacked application.
-     *
+     * 
      * @param clazz
      *            the given class from the JAR-file
      * @throws IOException
@@ -50,22 +52,47 @@ public class MetaReader {
      */
     public MetaReader(Class<?> clazz) throws IOException {
         URL url = clazz.getProtectionDomain().getCodeSource().getLocation();
-        Manifest manifest;
+        JarFile file = null;
 
-        if (url.getFile().endsWith(JAR_EXTENSION)) {
-            JarFile file = new JarFile(url.getFile());
-            manifest = file.getManifest();
-        } else {
-            url = new URL(url.toString().concat(JarFile.MANIFEST_NAME));
-            manifest = new Manifest(url.openStream());
+        try {
+            Manifest manifest;
+
+            if (url.getFile().endsWith(JAR_EXTENSION)) {
+                file = new JarFile(url.getFile());
+                manifest = file.getManifest();
+            } else {
+                url = new URL(url.toString().concat(JarFile.MANIFEST_NAME));
+                manifest = new Manifest(url.openStream());
+            }
+
+            attributes = manifest.getMainAttributes();
+        } finally {
+            if (file != null) {
+                file.close();
+            }
         }
+    }
 
-        attributes = manifest.getMainAttributes();
+    public MetaReader(String contextPath) throws IOException {
+        FileInputStream fileInputStream = null;
+
+        try {
+            File file = new File(contextPath.concat("/WEB-INF/classes/"
+                    + JarFile.MANIFEST_NAME));
+            fileInputStream = new FileInputStream(file);
+            Manifest manifest = new Manifest(fileInputStream);
+
+            attributes = manifest.getMainAttributes();
+        } finally {
+            if (fileInputStream != null) {
+                fileInputStream.close();
+            }
+        }
     }
 
     /**
      * Returns the main Manifest attributes.
-     *
+     * 
      * @see Manifest#getMainAttributes()
      * @return the attributes
      */
@@ -76,7 +103,7 @@ public class MetaReader {
     /**
      * Returns the attribute from the main Manifest attributes by the specified
      * attribute's name.
-     *
+     * 
      * @param attribute
      *            the given name
      * @return the attribute
@@ -88,7 +115,7 @@ public class MetaReader {
     /**
      * Returns the meta-attribute (see {@link MetaAttributes}) by the specified
      * attribute's name.
-     *
+     * 
      * @param attribute
      *            the given name
      * @return the meta-attribute
@@ -99,7 +126,7 @@ public class MetaReader {
 
     /**
      * Returns archiver version.
-     *
+     * 
      * @see MetaAttributes#ARCHIVER_VERSION
      * @return the version
      */
@@ -109,7 +136,7 @@ public class MetaReader {
 
     /**
      * Returns the built by information.
-     *
+     * 
      * @see MetaAttributes#BUILT_BY
      * @return the built information
      */
@@ -119,7 +146,7 @@ public class MetaReader {
 
     /**
      * Returns the JDK-build information.
-     *
+     * 
      * @see MetaAttributes#BUILD_JDK
      * @return the JDK information
      */
@@ -129,7 +156,7 @@ public class MetaReader {
 
     /**
      * Returns the classpath information.
-     *
+     * 
      * @see Name#CLASS_PATH
      * @return the classpath
      */
@@ -139,7 +166,7 @@ public class MetaReader {
 
     /**
      * Returns the content-type information.
-     *
+     * 
      * @see Name#CONTENT_TYPE
      * @return the content type
      */
@@ -149,7 +176,7 @@ public class MetaReader {
 
     /**
      * Returns the extension installation information.
-     *
+     * 
      * @see Name#EXTENSION_INSTALLATION
      * @return the extension installation
      */
@@ -159,7 +186,7 @@ public class MetaReader {
 
     /**
      * Returns the extension list.
-     *
+     * 
      * @see Name#EXTENSION_LIST
      * @return the extension list
      */
@@ -169,7 +196,7 @@ public class MetaReader {
 
     /**
      * Returns the extension name.
-     *
+     * 
      * @see Name#EXTENSION_NAME
      * @return the extension name
      */
@@ -179,7 +206,7 @@ public class MetaReader {
 
     /**
      * Returns the information about creator.
-     *
+     * 
      * @see MetaAttributes#CREATED_BY
      * @return the creator information
      */
@@ -189,7 +216,7 @@ public class MetaReader {
 
     /**
      * Returns the information about CI-server build version.
-     *
+     * 
      * @see MetaAttributes#IMPLEMENTATION_BUILD
      * @return the build version
      */
@@ -199,7 +226,7 @@ public class MetaReader {
 
     /**
      * Returns the SCM-revision version.
-     *
+     * 
      * @see MetaAttributes#IMPLEMENTATION_REVISION
      * @return the revision
      */
@@ -209,7 +236,7 @@ public class MetaReader {
 
     /**
      * Returns the extension name.
-     *
+     * 
      * @see MetaAttributes#IMPLEMENTATION_BUILD
      * @return the extension name
      */
@@ -219,7 +246,7 @@ public class MetaReader {
 
     /**
      * Returns the implementation title.
-     *
+     * 
      * @see Name#IMPLEMENTATION_TITLE
      * @return the implementation title
      */
@@ -229,7 +256,7 @@ public class MetaReader {
 
     /**
      * Returns the implementation URL.
-     *
+     * 
      * @see Name#IMPLEMENTATION_URL
      * @return the implementation URL
      */
@@ -239,7 +266,7 @@ public class MetaReader {
 
     /**
      * Returns the implementation vendor.
-     *
+     * 
      * @see Name#IMPLEMENTATION_VENDOR
      * @return the implementation vendor
      */
@@ -249,7 +276,7 @@ public class MetaReader {
 
     /**
      * Returns the implementation vendor identifier.
-     *
+     * 
      * @see Name#IMPLEMENTATION_VENDOR_ID
      * @return the implementation vendor identifier
      */
@@ -259,7 +286,7 @@ public class MetaReader {
 
     /**
      * Returns the implementation version.
-     *
+     * 
      * @see Name#IMPLEMENTATION_VERSION
      * @return the implementation version
      */
@@ -269,7 +296,7 @@ public class MetaReader {
 
     /**
      * Returns the main class.
-     *
+     * 
      * @see Name#MAIN_CLASS
      * @return the main class
      */
@@ -279,7 +306,7 @@ public class MetaReader {
 
     /**
      * Returns the manifest version.
-     *
+     * 
      * @see Name#MANIFEST_VERSION
      * @return the manifest version
      */
@@ -289,7 +316,7 @@ public class MetaReader {
 
     /**
      * Returns the package information.
-     *
+     * 
      * @see MetaAttributes#PACKAGE
      * @return the package information
      */
@@ -299,7 +326,7 @@ public class MetaReader {
 
     /**
      * Returns the sealed information.
-     *
+     * 
      * @see Name#SEALED
      * @return the sealed information
      */
@@ -309,7 +336,7 @@ public class MetaReader {
 
     /**
      * Returns the signature version.
-     *
+     * 
      * @see Name#SIGNATURE_VERSION
      * @return the signature version
      */
@@ -319,7 +346,7 @@ public class MetaReader {
 
     /**
      * Returns the specification.
-     *
+     * 
      * @see Name#SPECIFICATION_TITLE
      * @return the specification title
      */
@@ -329,7 +356,7 @@ public class MetaReader {
 
     /**
      * Returns the specification version.
-     *
+     * 
      * @see Name#SPECIFICATION_VERSION
      * @return the specification version
      */
@@ -339,7 +366,7 @@ public class MetaReader {
 
     /**
      * Returns the specification vendor.
-     *
+     * 
      * @see Name#SPECIFICATION_VENDOR
      * @return the specification vendor
      */
