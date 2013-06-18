@@ -3,7 +3,7 @@ MetaJ
 
 Description
 -----------
-The simple java library (and CLI-application) for reading manifest meta-information.
+The simple java library for reading manifest meta-information.
 
 Requirements
 ------------
