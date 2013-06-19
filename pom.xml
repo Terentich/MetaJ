@@ -12,13 +12,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>MetaJ</name>
   <url>https://github.com/Terentich/MetaJ</url>
-  <description>The simple java library (and CLI-application) for reading manifest meta-information</description>
+  <description>The simple java library for reading manifest meta-information</description>
 
   <properties>
     <java.api>1.6</java.api>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>dd.MM.yyyy HHmm z</maven.build.timestamp.format>
-    <mainclass>${project.groupId}.${project.artifactId}.Main</mainclass>
   </properties>
 
   <licenses>
@@ -89,9 +88,6 @@
               <addDefaultSpecificationEntries>true
               </addDefaultSpecificationEntries>
 
-              <mainClass>${mainclass}</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>${dependency.path}</classpathPrefix>
               <packageName>${project.groupId}</packageName>
             </manifest>
           </archive>
@@ -102,6 +98,26 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>2.2.1</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifestEntries>
+              <Implementation-Date>${maven.build.timestamp}
+              </Implementation-Date>
+              <Implementation-Revision>${buildNumber}</Implementation-Revision>
+            </manifestEntries>
+
+            <manifest>
+              <addDefaultImplementationEntries>true
+              </addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true
+              </addDefaultSpecificationEntries>
+
+              <packageName>${project.groupId}</packageName>
+            </manifest>
+          </archive>
+        </configuration>
+
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -117,6 +133,26 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifestEntries>
+              <Implementation-Date>${maven.build.timestamp}
+              </Implementation-Date>
+              <Implementation-Revision>${buildNumber}</Implementation-Revision>
+            </manifestEntries>
+
+            <manifest>
+              <addDefaultImplementationEntries>true
+              </addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true
+              </addDefaultSpecificationEntries>
+
+              <packageName>${project.groupId}</packageName>
+            </manifest>
+          </archive>
+        </configuration>
+
         <executions>
           <execution>
             <id>attach-javadocs</id>
