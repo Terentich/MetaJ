@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.terentich</groupId>
   <artifactId>metaj</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>MetaJ</name>
   <url>https://github.com/Terentich/MetaJ</url>
   <description>The simple java library for reading manifest meta-information</description>
@@ -31,7 +31,7 @@
     <url>https://git@github.com/Terentich/MetaJ.git</url>
     <connection>scm:git:https://github.com/Terentich/MetaJ.git</connection>
     <developerConnection>scm:git:https://github.com/Terentich/MetaJ.git</developerConnection>
-    <tag>v0.0.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
