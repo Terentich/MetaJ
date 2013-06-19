@@ -29,9 +29,9 @@
   </licenses>
 
   <scm>
-    <url>https://git@github.com:Terentich/MetaJ.git</url>
+    <url>https://git@github.com/Terentich/MetaJ.git</url>
     <connection>scm:git:https://github.com/Terentich/MetaJ.git</connection>
-    <developerConnection>scm:git:https://github.com:Terentich/MetaJ.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/Terentich/MetaJ.git</developerConnection>
   </scm>
 
   <developers>
